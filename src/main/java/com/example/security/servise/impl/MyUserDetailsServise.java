@@ -1,8 +1,8 @@
-package com.example.security;
+package com.example.security.servise.impl;
 
-import com.example.security.model.user;
-import com.example.security.model.myUserDetails;
-import com.example.security.repository.userReposotory;
+import com.example.security.model.User;
+import com.example.security.model.MyUserDetails;
+import com.example.security.repository.impl.UserReposotoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,16 +15,16 @@ import java.sql.SQLException;
 public class MyUserDetailsServise implements UserDetailsService {
 
     @Autowired
-    private userReposotory userRepository;
+    private UserReposotoryImpl UserRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        user user;
+        User user;
 
         try {
-            user = userRepository.getUserByUsername(username);
+            user = UserRepository.getUserByUsername(username);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return new myUserDetails(user);
+        return new MyUserDetails(user);
     }
 }

@@ -4,23 +4,21 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
-public class myUserDetails implements UserDetails {
+public class MyUserDetails implements UserDetails {
 
-    user user;
+    User user;
 
-    public myUserDetails(user user){
+    public MyUserDetails(User user){
         this.user=user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_"+ user.getRole()));
     }
 
     @Override
@@ -30,7 +28,7 @@ public class myUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUsrname();
+        return user.getEmail();
     }
 
     @Override
@@ -50,6 +48,6 @@ public class myUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return user.getIsEnabled();
     }
 }
