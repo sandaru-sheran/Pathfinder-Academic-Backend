@@ -17,6 +17,11 @@ public class UserServiseImpl implements com.example.security.servise.UserServise
     @Override
     public boolean createUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
-        return userReposotry.createUser(user);
+        User user1 = userReposotry.save(user);
+        if(user1.getId() != null){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
