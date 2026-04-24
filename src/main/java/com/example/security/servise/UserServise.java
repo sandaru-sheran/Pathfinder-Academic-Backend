@@ -4,4 +4,6 @@ import com.example.security.model.User;
 
 public interface UserServise {
     boolean createUser(User user);
+
+    String verify(User user);
 }

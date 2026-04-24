@@ -20,4 +20,9 @@ public class UserControllerImpl implements UserController {
     public boolean createUser(@RequestBody User user){
         return userServise.createUser(user);
     }
+
+    @PostMapping("/login")
+    public String login(@RequestBody User user){
+        return userServise.verify(user);
+    }
 }
