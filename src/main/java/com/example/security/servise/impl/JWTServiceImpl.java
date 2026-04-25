@@ -2,6 +2,7 @@ package com.example.security.servise.impl;
 
 import com.example.security.model.User;
 import com.example.security.servise.JWTService;
+import com.example.security.util.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -26,7 +27,7 @@ public class JWTServiceImpl implements JWTService {
         SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
         Instant now = Instant.now();
         Instant expiryDate = now.plusMillis(expirationTime);
-
+        System.out.println("DEBUG - Generating token for: " + user.getEmail() + " | Role is: " + user.getRole());
         return Jwts.builder()
                 .subject(user.getEmail())
                 .claim("userId", user.getId())
@@ -49,6 +50,7 @@ public class JWTServiceImpl implements JWTService {
             return null;
         }
     }
+
 
     @Override
     public boolean validateToken(String token) {

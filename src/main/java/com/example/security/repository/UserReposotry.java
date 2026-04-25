@@ -8,5 +8,5 @@ import java.sql.SQLException;
 
 @Repository
 public interface UserReposotry extends JpaRepository<User, Long> {
-    User findByEmail(String username)throws SQLException;
+    User findByEmail(String username);
 }

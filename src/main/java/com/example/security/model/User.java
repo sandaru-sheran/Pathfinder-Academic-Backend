@@ -20,10 +20,12 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private UserRole role;
     private String registrationNumber;
     private String firstName;
     private String lastName;
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean isEnabled=true;
 
 }

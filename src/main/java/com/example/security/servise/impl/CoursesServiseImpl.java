@@ -4,9 +4,11 @@ import com.example.security.model.Course;
 import com.example.security.repository.CoursesRepository;
 import com.example.security.servise.CoursesServise;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CoursesServiseImpl implements CoursesServise {
     @Autowired
     private CoursesRepository coursesRepository;

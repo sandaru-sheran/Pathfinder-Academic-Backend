@@ -40,7 +40,9 @@ public class UserServiseImpl implements com.example.security.servise.UserServise
     public String verify(User user) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         if(authentication.isAuthenticated()){
-            return jwtService.generateToken(user);
+
+            User authenticatedUser = userReposotry.findByEmail(user.getEmail());
+            return jwtService.generateToken(authenticatedUser);
         }else {
             return "User is not authenticated";
         }

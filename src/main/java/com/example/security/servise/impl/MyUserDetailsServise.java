@@ -16,15 +16,20 @@ public class MyUserDetailsServise implements UserDetailsService {
 
     @Autowired
     private UserReposotry UserRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user;
+        User user = UserRepository.findByEmail(username);
 
-        try {
-            user = UserRepository.findByEmail(username);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with email: " + username);
+        }else{
+            return new MyUserDetails(user);
         }
-        return new MyUserDetails(user);
+
+
     }
-}
+
+    }
+
+
