@@ -8,4 +8,6 @@ public interface JWTService {
     String extractEmail(String token);
     
     boolean validateToken(String token);
+
+    Long extractUserId(String token);
 }

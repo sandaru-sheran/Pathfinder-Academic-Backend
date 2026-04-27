@@ -36,13 +36,13 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(customizer -> customizer.disable())
-//                .authorizeHttpRequests(request -> request
-//                        .requestMatchers(
-//                                "/api/user/login",
-//                                "/api/user/create",
-//                                "/swagger-ui/**",
-//                                "/v3/api-docs/**").permitAll()
-//                        .anyRequest().authenticated())
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers(
+                                "/api/user/login",
+                                "/api/user/create",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**").permitAll()
+                        .anyRequest().authenticated())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

@@ -51,6 +51,17 @@ public class JWTServiceImpl implements JWTService {
         }
     }
 
+    @Override
+    public Long extractUserId(String token) {
+        try {
+            Claims claims = getAllClaimsFromToken(token);
+            Long userId = claims.get("userId", Long.class);
+            return userId;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     @Override
     public boolean validateToken(String token) {
