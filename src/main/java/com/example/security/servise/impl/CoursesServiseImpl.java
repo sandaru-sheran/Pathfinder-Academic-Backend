@@ -1,7 +1,10 @@
 package com.example.security.servise.impl;
 
 import com.example.security.model.Course;
+import com.example.security.model.Program;
+import com.example.security.model.dto.CourseDTO;
 import com.example.security.repository.CoursesRepository;
+import com.example.security.repository.ProgramRepository;
 import com.example.security.servise.CoursesServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,9 @@ import java.util.List;
 public class CoursesServiseImpl implements CoursesServise {
     @Autowired
     private CoursesRepository coursesRepository;
+
+    @Autowired
+    private ProgramRepository programRepository;
 
     @Override
     public List<Course> getAllCourses() {
@@ -24,8 +30,16 @@ public class CoursesServiseImpl implements CoursesServise {
     }
 
     @Override
-    public Boolean createCourse(Course course) {
-        return coursesRepository.save(course).getId() != null;
+    public CourseDTO createCourse(CourseDTO courseDto) {
+        Course course = new Course();
+        course.setCourseName(courseDto.getName());
+        course.setCourseCode(courseDto.getCode());
+        course.setCredits(courseDto.getCredits());
+        Program program = new Program();
+        program =  programRepository.findById(courseDto.getProgramId()).orElse(null);
+        course.setProgram(program);
+        course = coursesRepository.save(course);
+        return new CourseDTO(course.getId(), course.getCourseName(), course.getCourseCode(), course.getCredits(), course.getProgram().getId());
     }
 
     @Override

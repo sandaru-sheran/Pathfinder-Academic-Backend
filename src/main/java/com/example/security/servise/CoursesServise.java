@@ -1,13 +1,14 @@
 package com.example.security.servise;
 
 import com.example.security.model.Course;
+import com.example.security.model.dto.CourseDTO;
 
 import java.util.List;
 
 public interface CoursesServise {
     List<Course> getAllCourses();
     Course getCourseById(Long id);
-    Boolean createCourse(Course course);
+    CourseDTO createCourse(CourseDTO courseDto);
     Boolean updateCourse(Course course);
     Boolean deleteCourse(Long id);
 }

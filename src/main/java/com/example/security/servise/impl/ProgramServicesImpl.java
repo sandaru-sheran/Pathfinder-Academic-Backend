@@ -1,6 +1,7 @@
 package com.example.security.servise.impl;
 
 import com.example.security.model.Program;
+import com.example.security.model.dto.ProgramDTO;
 import com.example.security.repository.ProgramRepository;
 import com.example.security.servise.ProgramServise;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,13 @@ public class ProgramServicesImpl implements ProgramServise {
     private ProgramRepository programRepository;
 
     @Override
-    public Boolean addProgram(Program program) {
-        return programRepository.save(program) != null;
+    public ProgramDTO addProgram(ProgramDTO programDto) {
+
+        Program program1 = new Program();
+        program1.setProgramName(programDto.getTitle());
+        program1.setProgramCode(programDto.getCode());
+        program1 = programRepository.save(program1);
+        return new ProgramDTO(program1.getId(), program1.getProgramName(), program1.getProgramCode());
     }
 
     @Override
