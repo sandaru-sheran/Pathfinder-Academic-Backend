@@ -40,7 +40,7 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @PostMapping("/{id}/toggle-status")
-    public ToggleStatusDTO toggleStatus(@RequestBody Long id){
+    public ToggleStatusDTO toggleStatus(@PathVariable Long id){
         return userServise.toggleStatus(id);
     }
 

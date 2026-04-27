@@ -22,18 +22,18 @@ public class ProgramControllerImpl implements ProgramController {
     }
 
     @PostMapping("/add")
-    public ProgramDTO addProgram(ProgramDTO programDto) {
+    public ProgramDTO addProgram(@RequestBody ProgramDTO programDto) {
          return programServise.addProgram(programDto);
 
     }
 
     @PatchMapping
-    public String updateProgram(Program program) {
+    public String updateProgram(@RequestBody Program program) {
         return "Program updated";
     }
 
     @DeleteMapping
-    public Boolean deleteProgram(Long id) {
+    public Boolean deleteProgram(@PathVariable Long id) {
         return true;
     }
 

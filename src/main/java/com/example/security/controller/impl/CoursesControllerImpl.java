@@ -24,19 +24,19 @@ public class CoursesControllerImpl implements CoursesController {
 
     @Override
     @GetMapping("/{id}")
-    public Course getCourseById(Long id) {
+    public Course getCourseById(@PathVariable Long id) {
         return coursesServise.getCourseById(id);
     }
 
     @Override
     @PostMapping("/create")
-    public CourseDTO createCourse(CourseDTO courseDto) {
+    public CourseDTO createCourse(@RequestBody CourseDTO courseDto) {
         return coursesServise.createCourse(courseDto);
     }
 
     @Override
     @PatchMapping
-    public Boolean updateCourse(Course course) {
+    public Boolean updateCourse(@RequestBody Course course) {
         return coursesServise.updateCourse(course);
     }
 

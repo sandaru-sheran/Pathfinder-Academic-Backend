@@ -86,8 +86,8 @@ public class UserServiseImpl implements UserServise {
     @Override
     public AllocationDTO lectureAllocation(AllocationDTO allocationDTO) {
         CourseAllocation courseAllocation = new CourseAllocation();
-        courseAllocation.setLecturer(userReposotry.findById(allocationDTO.getLectureId()).orElse(null));
-        courseAllocation.setCourse(coursesRepository.findById(allocationDTO.getCourseId()).orElse(null));
+        courseAllocation.setLecturer(userReposotry.findById(allocationDTO.getLectureId()).orElseThrow(() -> new RuntimeException("Lecturer not found")));
+        courseAllocation.setCourse(coursesRepository.findById(allocationDTO.getCourseId()).orElseThrow(() -> new RuntimeException("Course not found")));
         courseAllocation.setSemester(allocationDTO.getSemester());
         courseAllocation = allocationRepository.save(courseAllocation);
         allocationDTO.setId(courseAllocation.getId());

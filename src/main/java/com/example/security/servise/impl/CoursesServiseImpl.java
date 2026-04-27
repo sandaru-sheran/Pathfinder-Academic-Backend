@@ -36,7 +36,7 @@ public class CoursesServiseImpl implements CoursesServise {
         course.setCourseCode(courseDto.getCode());
         course.setCredits(courseDto.getCredits());
         Program program = new Program();
-        program =  programRepository.findById(courseDto.getProgramId()).orElse(null);
+        program =  programRepository.findById(courseDto.getProgramId()).orElseThrow(() -> new RuntimeException("Program not found with id: " + courseDto.getProgramId()));
         course.setProgram(program);
         course = coursesRepository.save(course);
         return new CourseDTO(course.getId(), course.getCourseName(), course.getCourseCode(), course.getCredits(), course.getProgram().getId());
