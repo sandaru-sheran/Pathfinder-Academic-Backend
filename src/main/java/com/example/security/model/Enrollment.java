@@ -13,6 +13,15 @@ import java.util.List;
 @Table(name = "enrollments")
 public class Enrollment {
 
+    public Enrollment(User student, Course course,String semester) {
+        this.student = student;
+        this.course = course;
+        this.semester = semester;
+
+    }
+
+    public Enrollment(Course course) {}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,8 +34,11 @@ public class Enrollment {
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
-    @OneToMany(mappedBy = "enrollment", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Result> results;
+    @Column(name = "semester", length = 20)
+    private String semester;
+
+    @Column(name = "grade", length = 5)
+    private String grade;
 
 }
 

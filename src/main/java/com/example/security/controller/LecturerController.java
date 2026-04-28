@@ -1,8 +1,44 @@
 package com.example.security.controller;
 
+import com.example.security.model.dto.AssignGradeDTO;
 import com.example.security.model.dto.LecturerCoursesDTO;
+import com.example.security.model.dto.RosterDTO;
+import com.example.security.servise.JWTService;
+import com.example.security.servise.LecturerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-public interface LecturerController {
+import java.util.List;
 
-    LecturerCoursesDTO getLecturerCourses(String token);
+@RestController
+@RequestMapping("/api/lecturer")
+public class LecturerController {
+
+    @Autowired
+    JWTService jwtService;
+
+    @Autowired
+    LecturerService lecturerService;
+
+    @GetMapping("allocated-courses")
+    public LecturerCoursesDTO getLecturerCourses(@RequestHeader(value = "Authorization")String token) {
+
+        token = token.substring(7);
+
+        Long userId=jwtService.extractUserId(token);
+        System.out.println(userId);
+
+        return lecturerService.getLecturerCourses(userId);
+    }
+
+    @GetMapping("/courses/{courseId}/roster")
+    public List<RosterDTO> getCourseRoster(@PathVariable Long courseId) {
+        return lecturerService.getCourseRoster(courseId);
+    }
+
+    @PostMapping("/enrollments/{enrollmentId}/grade")
+    public AssignGradeDTO assignGrade(@PathVariable Long enrollmentId,@RequestBody AssignGradeDTO assignGradeDTO) {
+        return lecturerService.assignGrade(enrollmentId, assignGradeDTO);
+    }
+
 }
