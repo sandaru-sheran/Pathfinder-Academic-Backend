@@ -15,21 +15,6 @@ public class CoursesController {
     @Autowired
     CoursesServise coursesServise;
 
-    @GetMapping("getall")
-    public List<Course> getAllCourses() {
-        return coursesServise.getAllCourses();
-    }
-
-    @GetMapping("/{id}")
-    public Course getCourseById(@PathVariable Long id) {
-        return coursesServise.getCourseById(id);
-    }
-
-    @PostMapping("/create")
-    public CourseDTO createCourse(@RequestBody CourseDTO courseDto) {
-        return coursesServise.createCourse(courseDto);
-    }
-
     @PatchMapping
     public Boolean updateCourse(@RequestBody Course course) {
         return coursesServise.updateCourse(course);

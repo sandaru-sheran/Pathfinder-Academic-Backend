@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AllocationRepository extends JpaRepository<CourseAllocation, Long> {
     CourseAllocation getByLecturer(User user);
-    CourseAllocation getByCourse(Course course);
+    CourseAllocation findFirstByCourse(Course course);
 }

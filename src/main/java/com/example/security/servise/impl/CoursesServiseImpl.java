@@ -9,6 +9,7 @@ import com.example.security.servise.CoursesServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,8 +21,14 @@ public class CoursesServiseImpl implements CoursesServise {
     private ProgramRepository programRepository;
 
     @Override
-    public List<Course> getAllCourses() {
-        return coursesRepository.findAll();
+    public List<CourseDTO> getAllCourses() {
+        List<Course> courses = coursesRepository.findAll();
+        List<CourseDTO> courseDTOList = new ArrayList<>();
+
+        for (Course course : courses) {
+            courseDTOList.add(new CourseDTO(course.getId(), course.getCourseName(), course.getCourseCode(), course.getCredits(), course.getProgram().getId()));
+        }
+        return courseDTOList;
     }
 
     @Override

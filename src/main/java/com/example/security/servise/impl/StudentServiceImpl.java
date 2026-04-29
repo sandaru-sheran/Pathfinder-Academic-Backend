@@ -1,6 +1,7 @@
 package com.example.security.servise.impl;
 
 import com.example.security.model.Course;
+import com.example.security.model.CourseAllocation;
 import com.example.security.model.Enrollment;
 import com.example.security.model.dto.StudentAllCourseDTO;
 import com.example.security.model.dto.StudentCourseDTO;
@@ -38,12 +39,15 @@ public class StudentServiceImpl implements StudentService {
         List<Enrollment> enrollments = enrolmentRepository.findByStudentId(studentId);
         List<StudentCourseDTO> studentCourseDTOS = new ArrayList<>();
         for (Enrollment enrollment : enrollments) {
+            CourseAllocation allocation = allocationRepository.findFirstByCourse(enrollment.getCourse());
+            String firstName = (allocation != null && allocation.getLecturer() != null) ? allocation.getLecturer().getFirstName() : "not";
+            String lastName = (allocation != null && allocation.getLecturer() != null) ? allocation.getLecturer().getLastName() : "allocated";
+
             studentCourseDTOS.add(new StudentCourseDTO(
                     enrollment.getCourse().getId(),
                     enrollment.getCourse().getCourseCode(),
                     enrollment.getCourse().getCourseName(),
-                    allocationRepository.getByCourse(enrollment.getCourse()).getLecturer().getFirstName()
-                            + " " + allocationRepository.getByCourse(enrollment.getCourse()).getLecturer().getLastName()));
+                    firstName+" "+lastName));
         }
         return studentCourseDTOS;
     }

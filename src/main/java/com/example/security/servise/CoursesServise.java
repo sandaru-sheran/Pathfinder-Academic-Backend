@@ -6,7 +6,7 @@ import com.example.security.model.dto.CourseDTO;
 import java.util.List;
 
 public interface CoursesServise {
-    List<Course> getAllCourses();
+    List<CourseDTO> getAllCourses();
     Course getCourseById(Long id);
     CourseDTO createCourse(CourseDTO courseDto);
     Boolean updateCourse(Course course);

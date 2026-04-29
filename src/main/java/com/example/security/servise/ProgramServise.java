@@ -11,5 +11,5 @@ public interface ProgramServise {
     Program findProgramById(Long id);
     Program findProgramByName(String name);
     Boolean updateProgram(Program program);
-    List<Program> findAllPrograms();
+    List<ProgramDTO> findAllPrograms();
 }

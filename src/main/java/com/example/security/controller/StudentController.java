@@ -23,6 +23,7 @@ public class StudentController {
 
     @GetMapping("/my-courses")
     public List<StudentCourseDTO> getMyCourses(@RequestHeader(value = "Authorization")String token) {
+        System.out.println(token);
         token = token.substring(7);
         return studentService.getMyCourses(jwtService. extractUserId(token));
     }

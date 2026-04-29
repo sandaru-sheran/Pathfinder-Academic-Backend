@@ -59,10 +59,10 @@ public class UserServiseImpl implements UserServise {
 
     @Override
     public String verify(LogInDTO logInDto) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(logInDto.getUsername(), logInDto.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(logInDto.getEmail(), logInDto.getPassword()));
         if(authentication.isAuthenticated()){
 
-            User authenticatedUser = userReposotry.findByEmail(logInDto.getUsername());
+            User authenticatedUser = userReposotry.findByEmail(logInDto.getEmail());
             return jwtService.generateToken(authenticatedUser);
         }else {
             return "User is not authenticated";

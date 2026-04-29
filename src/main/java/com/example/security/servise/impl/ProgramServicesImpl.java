@@ -7,6 +7,7 @@ import com.example.security.servise.ProgramServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -51,7 +52,13 @@ public class ProgramServicesImpl implements ProgramServise {
     }
 
     @Override
-    public List<Program> findAllPrograms() {
-        return programRepository.findAll();
+    public List<ProgramDTO> findAllPrograms() {
+        List<Program> programs = programRepository.findAll();
+        List<ProgramDTO> programDTOList = new ArrayList<>();
+
+        for (Program program : programs) {
+            programDTOList.add(new ProgramDTO(program.getId(), program.getProgramName(), program.getProgramCode()));
+        }
+        return programDTOList;
     }
 }

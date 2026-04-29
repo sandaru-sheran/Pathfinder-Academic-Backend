@@ -37,11 +37,4 @@ public class UserController {
     public ToggleStatusDTO toggleStatus(@PathVariable Long id){
         return userServise.toggleStatus(id);
     }
-
-    @PostMapping("/lecturer-allocation")
-    public AllocationDTO lectureAllocation(AllocationDTO allocationDTO) {
-        return userServise.lectureAllocation(allocationDTO);
-    }
-
-
 }

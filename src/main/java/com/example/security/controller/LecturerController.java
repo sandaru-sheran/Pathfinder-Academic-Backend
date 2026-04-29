@@ -8,6 +8,7 @@ import com.example.security.servise.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,15 +21,17 @@ public class LecturerController {
     @Autowired
     LecturerService lecturerService;
 
-    @GetMapping("allocated-courses")
-    public LecturerCoursesDTO getLecturerCourses(@RequestHeader(value = "Authorization")String token) {
+    @GetMapping("/allocated-courses")
+    public List<LecturerCoursesDTO> getLecturerCourses(@RequestHeader(value = "Authorization")String token) {
 
         token = token.substring(7);
 
         Long userId=jwtService.extractUserId(token);
         System.out.println(userId);
 
-        return lecturerService.getLecturerCourses(userId);
+        List<LecturerCoursesDTO> lecturerCoursesDTOS = new ArrayList<>();
+        lecturerCoursesDTOS.add(lecturerService.getLecturerCourses(userId));
+        return lecturerCoursesDTOS;
     }
 
     @GetMapping("/courses/{courseId}/roster")
