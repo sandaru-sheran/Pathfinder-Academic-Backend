@@ -1,6 +1,7 @@
 package com.example.security.servise;
 
 import com.example.security.model.Program;
+import com.example.security.model.dto.CourseResourceDTO;
 import com.example.security.model.dto.ProgramDTO;
 
 import java.util.List;

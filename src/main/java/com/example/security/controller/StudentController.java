@@ -1,9 +1,6 @@
 package com.example.security.controller;
 
-import com.example.security.model.dto.StudentAllCourseDTO;
-import com.example.security.model.dto.StudentCourseDTO;
-import com.example.security.model.dto.StudentEnrollDTO;
-import com.example.security.model.dto.TranscriptDTO;
+import com.example.security.model.dto.*;
 import com.example.security.servise.JWTService;
 import com.example.security.servise.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +43,11 @@ public class StudentController {
     public List<TranscriptDTO> getTranscript(@RequestHeader(value = "Authorization")String token) {
         token = token.substring(7);
         return studentService.getTranscript(jwtService. extractUserId(token));
+    }
+
+    @GetMapping("/{courseId}/get-resouse")
+    public List<CourseResourceDTO> getResouse(@PathVariable Long courseId,@RequestHeader(value = "Authorization")String token) {
+        token = token.substring(7);
+        return studentService.getResouse(courseId,jwtService. extractUserId(token));
     }
 }

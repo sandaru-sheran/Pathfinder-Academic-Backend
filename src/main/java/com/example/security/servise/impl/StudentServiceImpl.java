@@ -2,15 +2,10 @@ package com.example.security.servise.impl;
 
 import com.example.security.model.Course;
 import com.example.security.model.CourseAllocation;
+import com.example.security.model.CourseResource;
 import com.example.security.model.Enrollment;
-import com.example.security.model.dto.StudentAllCourseDTO;
-import com.example.security.model.dto.StudentCourseDTO;
-import com.example.security.model.dto.StudentEnrollDTO;
-import com.example.security.model.dto.TranscriptDTO;
-import com.example.security.repository.AllocationRepository;
-import com.example.security.repository.CoursesRepository;
-import com.example.security.repository.EnrolmentRepository;
-import com.example.security.repository.UserReposotry;
+import com.example.security.model.dto.*;
+import com.example.security.repository.*;
 import com.example.security.servise.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +28,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     CoursesRepository  coursesRepository;
+
+    @Autowired
+    private CourseResouseRepository courseResouseRepository;
 
     @Override
     public List<StudentCourseDTO> getMyCourses(Long studentId) {
@@ -97,5 +95,19 @@ public class StudentServiceImpl implements StudentService {
                     enrollment.getGrade()));
         }
         return transcriptDTOS;
+    }
+
+    @Override
+    public List<CourseResourceDTO> getResouse(Long courseId, Long stuId) {
+        if(enrolmentRepository.findByStudentIdAndCourseId(stuId,courseId) != null){
+            List<CourseResourceDTO> courseResourceDTOS = new ArrayList<>();
+            List<CourseResource> courseResources = courseResouseRepository.findByCourseId(courseId);
+            for (CourseResource courseResource : courseResources) {
+                courseResourceDTOS.add(new CourseResourceDTO(courseResource.getId(),courseResource.getCourse().getId() ,courseResource.getTitle(), courseResource.getVideoId()));
+            }
+            return courseResourceDTOS;
+        }else{
+            throw new RuntimeException("Student is not enrolled in this course");
+        }
     }
 }

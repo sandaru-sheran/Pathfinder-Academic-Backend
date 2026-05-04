@@ -1,8 +1,10 @@
 package com.example.security.controller;
 
 import com.example.security.model.dto.AssignGradeDTO;
+import com.example.security.model.dto.CourseResourceDTO;
 import com.example.security.model.dto.LecturerCoursesDTO;
 import com.example.security.model.dto.RosterDTO;
+import com.example.security.servise.CoursesServise;
 import com.example.security.servise.JWTService;
 import com.example.security.servise.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,10 @@ public class LecturerController {
 
     @Autowired
     LecturerService lecturerService;
+
+    @Autowired
+    CoursesServise coursesServise;
+
 
     @GetMapping("/allocated-courses")
     public List<LecturerCoursesDTO> getLecturerCourses(@RequestHeader(value = "Authorization")String token) {
@@ -42,6 +48,11 @@ public class LecturerController {
     @PostMapping("/enrollments/{enrollmentId}/grade")
     public AssignGradeDTO assignGrade(@PathVariable Long enrollmentId,@RequestBody AssignGradeDTO assignGradeDTO) {
         return lecturerService.assignGrade(enrollmentId, assignGradeDTO);
+    }
+
+    @PostMapping("/add-resouse")
+    public CourseResourceDTO addResouse(@RequestBody CourseResourceDTO courseResourceDTO){
+        return coursesServise.addResouse(courseResourceDTO);
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.security.servise;
 
 import com.example.security.model.Course;
 import com.example.security.model.dto.CourseDTO;
+import com.example.security.model.dto.CourseResourceDTO;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ public interface CoursesServise {
     CourseDTO createCourse(CourseDTO courseDto);
     Boolean updateCourse(Course course);
     Boolean deleteCourse(Long id);
+    CourseResourceDTO addResouse(CourseResourceDTO courseResourceDTO);
 }

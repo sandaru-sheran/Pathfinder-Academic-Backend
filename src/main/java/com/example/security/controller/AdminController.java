@@ -3,6 +3,7 @@ package com.example.security.controller;
 import com.example.security.model.Course;
 import com.example.security.model.dto.AllocationDTO;
 import com.example.security.model.dto.CourseDTO;
+import com.example.security.model.dto.CourseResourceDTO;
 import com.example.security.model.dto.ProgramDTO;
 import com.example.security.servise.CoursesServise;
 import com.example.security.servise.ProgramServise;
@@ -50,6 +51,12 @@ public class AdminController {
     @PostMapping("/lecturer-allocation")
     public AllocationDTO lectureAllocation(@RequestBody AllocationDTO allocationDTO) {
         return userServise.lectureAllocation(allocationDTO);
+    }
+
+    @PostMapping("/add-resouse")
+    public CourseResourceDTO addResouse(@RequestBody CourseResourceDTO courseResourceDTO){
+        System.out.println(courseResourceDTO);
+        return coursesServise.addResouse(courseResourceDTO);
     }
 
 }
